@@ -1,0 +1,2 @@
+rootProject.name='SamsungPoC Sensor Mobile'
+include ':app'
