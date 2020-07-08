@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimary">#272727</color>
+    <color name="colorPrimaryDark">#121212</color>
     <color name="colorAccent">#03DAC5</color>
+
     <color name="black">#000000</color>
     <color name="cardGray">#4a4a4a</color>
+
+    <color name="appBackgroundColor">#121212</color>
+    <color name="highlightColor">#33ffffff</color>
+
+    <!--    Main activity-->
+    <color name="step_card_background_color">#2c2c2c</color>
+    <color name="step_target_color">#545454</color>
+    <color name="step_progress_color">#47FF47</color>
+
+    <color name="primaryTextColor">#DEFFFFFF</color>
+    <color name="secondaryTextColor">#99FFFFFF</color>
+
 </resources>

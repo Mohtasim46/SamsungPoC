@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--    Main activity-->
+    <dimen name="step_card_height">250dp</dimen>
+    <dimen name="step_card_top_margin">10dp</dimen>
+    <dimen name="step_card_left_margin">10dp</dimen>
+    <dimen name="step_card_right_margin">10dp</dimen>
+    <dimen name="step_card_corner_radius">10dp</dimen>
+    <dimen name="step_card_elevation">5dp</dimen>
+
+    <dimen name="step_progressbar_height">150dp</dimen>
+    <dimen name="step_progressbar_width">150dp</dimen>
+    <dimen name="step_progressbar_thickness">12dp</dimen>
+
+    <dimen name="step_count_text_size">30dp</dimen>
+    <dimen name="step_count_target_text_size">14dp</dimen>
+
+
+</resources>
