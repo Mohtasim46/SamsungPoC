@@ -37,7 +37,7 @@ public class MainViewModel extends AndroidViewModel {
 
     private void loadStepCount() {
         // TODO
-        this.stepCount = new Random().nextInt(5000) + 500;
+        this.stepCount = PreferenceHelper.getCurrentStepCount();
     }
 
     private void loadStepCountTarget() {
