@@ -12,4 +12,22 @@
     inner_frame_layout_padding (below variable) on round screens.
     -->
     <dimen name="inner_frame_layout_padding">5dp</dimen>
+
+    <!--    Main Activity-->
+    <dimen name="icon_card_width">60dp</dimen>
+    <dimen name="icon_card_height">60dp</dimen>
+    <dimen name="icon_card_margin_left">10dp</dimen>
+    <dimen name="icon_card_margin_right">10dp</dimen>
+    <dimen name="icon_constraint_layout_padding">5dp</dimen>
+
+    <dimen name="icon_progress_bar_width">45dp</dimen>
+    <dimen name="icon_progress_bar_height">45dp</dimen>
+
+    <dimen name="icon_card_radius">30dp</dimen>
+
+    <dimen name="icon_width">28dp</dimen>
+    <dimen name="icon_height">28dp</dimen>
+
+    <dimen name="step_progressbar_thickness">6dp</dimen>
+
 </resources>

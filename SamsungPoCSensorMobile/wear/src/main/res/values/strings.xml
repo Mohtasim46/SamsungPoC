@@ -5,4 +5,7 @@
     values-round/strings.xml for round devices.
     -->
     <string name="hello_world">Hello Square World!</string>
+
+    <!--    Main Activity-->
+    <string name="step_count_and_target_text">%1d steps\n Target: %2d</string>
 </resources>
