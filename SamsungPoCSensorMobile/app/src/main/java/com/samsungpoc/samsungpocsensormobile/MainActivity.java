@@ -1,5 +1,9 @@
 package com.samsungpoc.samsungpocsensormobile;
 
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -9,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener, SensorEventListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final long STEP_PROGRESS_BAR_ANIMATION_TIME = 1500;
@@ -19,9 +23,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextView stepCountTextView;
     private TextView stepCountTargetTextView;
 
+    private SensorManager mSensorManager;
+    private Sensor mStepCounterSensor;
+    private boolean isSensorPresent;
+    int stepCount = 0;
+
     /*
         Overriding methods
      */
+
     @Override
     protected int getLayout() {
         Log.d(TAG, "getLayout called");
@@ -31,9 +41,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void init() {
         Log.d(TAG, "init called");
+        ContextHolder.getInstance().setApplicationContext(this);
         initFindViewById();
         initOnClickListener();
         observeMutableLiveData();
+        initSensorManager();
         loadStepData();
     }
 
@@ -48,9 +60,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null)
+            mSensorManager.registerListener(this, mStepCounterSensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if(mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null)
+            mSensorManager.unregisterListener(this, mStepCounterSensor);
+    }
+
     /*
-        Initializing methods
-     */
+                Initializing methods
+             */
     private void initFindViewById() {
         Log.d(TAG, "initFindViewById called");
         stepCardView = findViewById(R.id.step_card_view);
@@ -59,6 +86,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         stepCountTargetTextView = findViewById(R.id.step_count_target_text_view);
     }
 
+    private void initSensorManager() {
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        if(mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER) != null) {
+            mStepCounterSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+            isSensorPresent = true;
+        } else {
+            Log.i(TAG, "Step sensor is not present in this device.");
+            isSensorPresent = false;
+        }
+    }
     /*
         Initializing onClickListener
      */
@@ -119,5 +157,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void loadStepData() {
         Log.d(TAG, "loadStepData called");
         getMainViewModel().loadStepData();
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+
+        if(event.sensor == mStepCounterSensor) {
+            stepCount = (int) event.values[0];
+            PreferenceHelper.setCurrentStepCount(stepCount);
+            Log.d(TAG, "Current step count " + stepCount);
+            loadStepData();
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        Log.i(TAG, "Accuracy of sensor has been changed to " + accuracy);
     }
 }
