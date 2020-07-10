@@ -10,12 +10,12 @@
     tools:deviceIds="wear">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/contraint_layout"
+        android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/step_icon_card_view"
+            android:id="@+id/step_card_view"
             android:layout_width="match_parent"
             android:layout_height="@dimen/icon_card_height"
             android:layout_marginLeft="@dimen/icon_card_margin_left"
@@ -62,7 +62,7 @@
                     app:layout_constraintTop_toTopOf="@id/step_progress_bar" />
 
                 <TextView
-                    android:id="@+id/step_text_view"
+                    android:id="@+id/step_count_and_target_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
