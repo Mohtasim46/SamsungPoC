@@ -1,0 +1,6 @@
+<resources>
+    <string name="hello_world">Hello Round World!</string>
+
+    <!--    Main Activity-->
+    <string name="step_count_and_target_text">%1d steps\n Target: %2d</string>
+</resources>
