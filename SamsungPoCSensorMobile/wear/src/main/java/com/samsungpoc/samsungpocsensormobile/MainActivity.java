@@ -30,6 +30,8 @@ public class MainActivity extends WearableFragmetActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        WearContextHolder.getInstance().setApplicationContext(this);
+
         initFindViewById();
         initOnClickListener();
         observeMutableLiveData();
