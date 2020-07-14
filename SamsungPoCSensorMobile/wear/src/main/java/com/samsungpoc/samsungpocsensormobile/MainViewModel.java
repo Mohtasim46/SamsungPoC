@@ -37,11 +37,11 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     private int getStepCount() {
-        return stepCount;
+        return WearPreferenceHelper.getCurrentStepCount();
     }
 
     private int getStepCountTarget() {
-        return stepCountTarget;
+        return WearPreferenceHelper.getStepsTarget();
     }
 
     private float getStepProgress() {
@@ -62,16 +62,17 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     private void loadStepDataSendMessage(String message) {
-        Log.e(TAG, "sendMessage called");
+        Log.i(TAG, "sendMessage called");
+        updateStepCard();
         String dataPath = "/my_path";
         new SendMessage(dataPath, message).start();
     }
 
     private void onReceivedMessage(String message) {
-        Log.e(TAG, "onReceivedMessage called, message = " + message);
+        Log.i(TAG, "onReceivedMessage called, message = " + message);
         StepData stepData = new Gson().fromJson(message, StepData.class);
-        this.stepCount = stepData.getStepCount();
-        this.stepCountTarget = stepData.getTarget();
+        WearPreferenceHelper.setCurrentStepCount(stepData.getStepCount());
+        WearPreferenceHelper.setStepsTarget(stepData.getTarget());
         updateStepCard();
     }
 
@@ -84,7 +85,7 @@ public class MainViewModel extends AndroidViewModel {
     private class Receiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.e(TAG, "onReceive called");
+            Log.i(TAG, "onReceive called");
             onReceivedMessage(intent.getStringExtra("message"));
         }
     }
