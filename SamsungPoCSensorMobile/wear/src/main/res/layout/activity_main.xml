@@ -48,7 +48,7 @@
                     app:cpb_round_border="true"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/step_icon"
@@ -65,16 +65,31 @@
                     android:id="@+id/step_count_and_target_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
                     android:gravity="center"
                     android:text="@string/step_count_and_target_text"
                     android:textColor="@color/white"
                     android:textSize="10dp"
-                    android:fontFamily="serif"
                     android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="@id/step_progress_bar"
-                    app:layout_constraintBottom_toBottomOf="@id/step_progress_bar"
+                    app:layout_constraintBottom_toTopOf="@id/last_sync_time_text_view"
                     app:layout_constraintLeft_toRightOf="@id/step_progress_bar"
-                    app:layout_constraintRight_toRightOf="parent"/>
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/last_sync_time_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center"
+                    android:text="@string/not_synced_yet"
+                    android:textColor="@color/white"
+                    android:textSize="10dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/step_progress_bar"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/step_count_and_target_text_view" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

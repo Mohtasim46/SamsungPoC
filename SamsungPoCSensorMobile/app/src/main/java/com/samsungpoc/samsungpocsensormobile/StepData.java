@@ -4,6 +4,7 @@ public class StepData {
 
     private int stepCount;
     private int target;
+    private long lastSyncTimeMilliseconds;
 
     public int getStepCount() {
         return stepCount;
@@ -19,5 +20,13 @@ public class StepData {
 
     public void setTarget(int target) {
         this.target = target;
+    }
+
+    public long getLastSyncTimeMilliseconds() {
+        return lastSyncTimeMilliseconds;
+    }
+
+    public void setLastSyncTimeMilliseconds(long lastSyncTimeMilliseconds) {
+        this.lastSyncTimeMilliseconds = lastSyncTimeMilliseconds;
     }
 }
