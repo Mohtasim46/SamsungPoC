@@ -25,8 +25,6 @@ public class MainViewModel extends AndroidViewModel {
 
     private static final String TAG = MainViewModel.class.getSimpleName();
 
-    private long lastSyncTime = 0;
-
     public MutableLiveData<Float> stepProgressMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<String> stepCountAndTargetMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<String> lastSyncTimeMutableLiveData = new MutableLiveData<>();
@@ -69,11 +67,11 @@ public class MainViewModel extends AndroidViewModel {
         } else {
             lastSyncTimeMutableLiveData.setValue(getApplication().getResources().getString(
                     R.string.last_sync_text,
-                    DateTimeUtils.getHour(lastSyncTime),
-                    DateTimeUtils.getMinute(lastSyncTime),
-                    DateTimeUtils.getDay(lastSyncTime),
-                    DateTimeUtils.getMonthName(lastSyncTime),
-                    DateTimeUtils.getYear(lastSyncTime)
+                    DateTimeUtils.getHour(getLastSyncTime()),
+                    DateTimeUtils.getMinute(getLastSyncTime()),
+                    DateTimeUtils.getDay(getLastSyncTime()),
+                    DateTimeUtils.getMonthName(getLastSyncTime()),
+                    DateTimeUtils.getYear(getLastSyncTime())
             ));
         }
     }
