@@ -21,4 +21,14 @@ public class PreferenceHelper {
     public static int getCurrentStepCount() {
         return getSharedPreferences().getInt("sensor_steps", 0);
     }
+
+    public static void setCurrentStepsTarget(int stepsTarget) {
+        SharedPreferences.Editor editor = getSharedPreferences().edit();
+        editor.putInt("steps_target", stepsTarget);
+        editor.apply();
+    }
+
+    public static int getCurrentStepsTarget() {
+        return getSharedPreferences().getInt("steps_target", 6000);
+    }
 }
