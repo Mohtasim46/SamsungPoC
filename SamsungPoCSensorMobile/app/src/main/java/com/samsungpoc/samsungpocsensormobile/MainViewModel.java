@@ -42,7 +42,7 @@ public class MainViewModel extends AndroidViewModel {
 
     private void loadStepCountTarget() {
         // TODO
-        this.stepCountTarget = 6000;
+        this.stepCountTarget = PreferenceHelper.getCurrentStepsTarget();
     }
 
     public void loadStepData() {
