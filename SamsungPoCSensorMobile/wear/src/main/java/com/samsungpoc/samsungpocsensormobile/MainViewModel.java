@@ -25,8 +25,6 @@ public class MainViewModel extends AndroidViewModel {
 
     private static final String TAG = MainViewModel.class.getSimpleName();
 
-    private int stepCount;
-    private int stepCountTarget;
     private long lastSyncTime = 0;
 
     public MutableLiveData<Float> stepProgressMutableLiveData = new MutableLiveData<>();
@@ -47,7 +45,7 @@ public class MainViewModel extends AndroidViewModel {
     }
 
     private long getLastSyncTime() {
-        return lastSyncTime;
+        return WearPreferenceHelper.getLastSyncTime();
     }
 
     private float getStepProgress() {
@@ -92,7 +90,7 @@ public class MainViewModel extends AndroidViewModel {
         StepData stepData = new Gson().fromJson(message, StepData.class);
         WearPreferenceHelper.setCurrentStepCount(stepData.getStepCount());
         WearPreferenceHelper.setStepsTarget(stepData.getTarget());
-        this.lastSyncTime = stepData.getLastSyncTimeMilliseconds();
+        WearPreferenceHelper.setLastSyncTime(stepData.getLastSyncTimeMilliseconds());
         updateStepCard();
     }
 
