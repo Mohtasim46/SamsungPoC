@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 public class PreferenceHelper {
 
     private static final String TAG = PreferenceHelper.class.getSimpleName();
-    public static final String SharedPreferenceKey = "shared_preference_1";
+    private static final String SharedPreferenceKey = "shared_preference_mobile_1";
 
     private static synchronized SharedPreferences getSharedPreferences() {
         return ContextHolder.getInstance().getApplicationContext().getSharedPreferences(SharedPreferenceKey, Context.MODE_PRIVATE);
