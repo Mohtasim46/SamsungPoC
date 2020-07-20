@@ -21,6 +21,7 @@ public class MainActivity extends WearableFragmetActivity implements View.OnClic
     private CardView stepCardView;
     private CircularProgressBar stepProgressBar;
     private TextView stepCountAndTargetTextView;
+    private TextView lastSyncTextView;
 
     /*
         Overriding methods
@@ -60,6 +61,7 @@ public class MainActivity extends WearableFragmetActivity implements View.OnClic
         stepCardView = findViewById(R.id.step_card_view);
         stepProgressBar = findViewById(R.id.step_progress_bar);
         stepCountAndTargetTextView = findViewById(R.id.step_count_and_target_text_view);
+        lastSyncTextView = findViewById(R.id.last_sync_time_text_view);
     }
 
     /*
@@ -89,6 +91,7 @@ public class MainActivity extends WearableFragmetActivity implements View.OnClic
         Log.d(TAG, "observeMutableLiveData called");
         observeStepProgressMutableLiveData();
         observeStepCountAndTargetMutableLiveData();
+        observeLastSyncTimeMutableLiveData();
     }
 
     private void observeStepProgressMutableLiveData() {
@@ -104,6 +107,14 @@ public class MainActivity extends WearableFragmetActivity implements View.OnClic
         getMainViewModel().stepCountAndTargetMutableLiveData.observe(this, stepCountAndTarget -> {
             Log.d(TAG, "stepCount and target is = " + stepCountAndTarget);
             stepCountAndTargetTextView.setText(stepCountAndTarget);
+        });
+    }
+
+    private void observeLastSyncTimeMutableLiveData() {
+        Log.d(TAG, "observeLastSyncTimeMutableLiveData called");
+        getMainViewModel().lastSyncTimeMutableLiveData.observe(this, lastSyncTime -> {
+            Log.d(TAG, "last sync time is = " + lastSyncTime);
+            lastSyncTextView.setText(lastSyncTime);
         });
     }
 

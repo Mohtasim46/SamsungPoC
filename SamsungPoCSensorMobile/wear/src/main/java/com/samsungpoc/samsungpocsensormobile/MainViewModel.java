@@ -27,9 +27,11 @@ public class MainViewModel extends AndroidViewModel {
 
     private int stepCount;
     private int stepCountTarget;
+    private long lastSyncTime = 0;
 
     public MutableLiveData<Float> stepProgressMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<String> stepCountAndTargetMutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<String> lastSyncTimeMutableLiveData = new MutableLiveData<>();
 
     public MainViewModel(@NonNull Application application) {
         super(application);
@@ -42,6 +44,10 @@ public class MainViewModel extends AndroidViewModel {
 
     private int getStepCountTarget() {
         return stepCountTarget;
+    }
+
+    private long getLastSyncTime() {
+        return lastSyncTime;
     }
 
     private float getStepProgress() {
@@ -59,6 +65,19 @@ public class MainViewModel extends AndroidViewModel {
         stepCountAndTargetMutableLiveData.setValue(getApplication().getResources().getString(
                 R.string.step_count_and_target_text,
                 getStepCount(), getStepCountTarget()));
+        if (getLastSyncTime() == 0) {
+            lastSyncTimeMutableLiveData.setValue(getApplication().getResources().getString(
+                    R.string.not_synced_yet));
+        } else {
+            lastSyncTimeMutableLiveData.setValue(getApplication().getResources().getString(
+                    R.string.last_sync_text,
+                    DateTimeUtils.getHour(lastSyncTime),
+                    DateTimeUtils.getMinute(lastSyncTime),
+                    DateTimeUtils.getDay(lastSyncTime),
+                    DateTimeUtils.getMonthName(lastSyncTime),
+                    DateTimeUtils.getYear(lastSyncTime)
+            ));
+        }
     }
 
     private void loadStepDataSendMessage(String message) {
@@ -72,6 +91,7 @@ public class MainViewModel extends AndroidViewModel {
         StepData stepData = new Gson().fromJson(message, StepData.class);
         this.stepCount = stepData.getStepCount();
         this.stepCountTarget = stepData.getTarget();
+        this.lastSyncTime = stepData.getLastSyncTimeMilliseconds();
         updateStepCard();
     }
 
