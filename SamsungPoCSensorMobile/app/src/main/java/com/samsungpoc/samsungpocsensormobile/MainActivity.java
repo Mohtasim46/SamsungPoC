@@ -5,9 +5,14 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -22,6 +27,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private CircularProgressBar stepProgressBar;
     private TextView stepCountTextView;
     private TextView stepCountTargetTextView;
+    private Toolbar toolbar;
 
     private SensorManager mSensorManager;
     private Sensor mStepCounterSensor;
@@ -47,6 +53,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         observeMutableLiveData();
         initSensorManager();
         loadStepData();
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     @Override
@@ -173,5 +181,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         Log.i(TAG, "Accuracy of sensor has been changed to " + accuracy);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.set_target:
+                Toast.makeText(this, "Set user target is tapped !!", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.help:
+                Toast.makeText(this, "Help is tapped !!", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
