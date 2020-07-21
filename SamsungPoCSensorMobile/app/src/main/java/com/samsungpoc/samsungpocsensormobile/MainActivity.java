@@ -77,7 +77,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                PreferenceHelper.setCurrentStepsTarget(Integer.parseInt(dialogInput.getText().toString()));
+                String inputText = dialogInput.getText().toString();
+                if(inputText != null && inputText.length() > 0) {
+                    PreferenceHelper.setCurrentStepsTarget(Integer.parseInt(dialogInput.getText().toString()));
+                }
                 loadStepData();
                 dialog.dismiss();
             }
