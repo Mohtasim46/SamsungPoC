@@ -1,13 +1,24 @@
 package com.samsungpoc.samsungpocsensormobile;
 
+import android.content.DialogInterface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -22,6 +33,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private CircularProgressBar stepProgressBar;
     private TextView stepCountTextView;
     private TextView stepCountTargetTextView;
+    private Toolbar toolbar;
+    private AlertDialog.Builder dialogBuilder;
+    private EditText dialogInput;
 
     private SensorManager mSensorManager;
     private Sensor mStepCounterSensor;
@@ -47,6 +61,34 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         observeMutableLiveData();
         initSensorManager();
         loadStepData();
+
+        setSupportActionBar(toolbar);
+
+        dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setTitle("Set User Target");
+
+        dialogInput = new EditText(this);
+        dialogInput.setMaxLines(1);
+        dialogInput.setPadding(48, 24, 24, 24);
+
+        dialogInput.setInputType(InputType.TYPE_CLASS_NUMBER);
+        dialogInput.setText("" + PreferenceHelper.getCurrentStepsTarget());
+
+        dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                PreferenceHelper.setCurrentStepsTarget(Integer.parseInt(dialogInput.getText().toString()));
+                loadStepData();
+                dialog.dismiss();
+            }
+        });
+
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
     }
 
     @Override
@@ -84,6 +126,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         stepProgressBar = findViewById(R.id.step_progress_bar);
         stepCountTextView = findViewById(R.id.step_count_text_view);
         stepCountTargetTextView = findViewById(R.id.step_count_target_text_view);
+        toolbar = findViewById(R.id.toolbar);
     }
 
     private void initSensorManager() {
@@ -173,5 +216,29 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         Log.i(TAG, "Accuracy of sensor has been changed to " + accuracy);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.set_target:
+                if(dialogInput.getParent()!=null)
+                    ((ViewGroup)dialogInput.getParent()).removeView(dialogInput); // <- fix
+                dialogBuilder.setView(dialogInput);
+                dialogBuilder.create().show();
+                Toast.makeText(this, "Set user target is tapped !!", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.help:
+                Toast.makeText(this, "Help is tapped !!", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

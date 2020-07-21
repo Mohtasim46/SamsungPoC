@@ -9,6 +9,9 @@
 
         <!--        Change on click color of card view background-->
         <item name="colorControlHighlight">@color/highlightColor</item>
+
+        <!-- android:textColorSecondary is the color of the menu overflow icon (three vertical dots) -->
+        <item name="android:textColorSecondary">@color/white</item>
     </style>
 
 </resources>
