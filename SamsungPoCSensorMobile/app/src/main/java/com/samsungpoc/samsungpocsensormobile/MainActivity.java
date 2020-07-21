@@ -61,14 +61,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         initSensorManager();
         loadStepData();
 
-
         setSupportActionBar(toolbar);
 
         dialogBuilder = new AlertDialog.Builder(this);
         dialogBuilder.setTitle("Set User Target");
 
         dialogInput = new EditText(this);
-        dialogInput.setInputType(InputType.TYPE_CLASS_PHONE | InputType.TYPE_CLASS_NUMBER);
+        dialogInput.setInputType(InputType.TYPE_CLASS_NUMBER);
         dialogInput.setText("" + PreferenceHelper.getCurrentStepsTarget());
 
         dialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
