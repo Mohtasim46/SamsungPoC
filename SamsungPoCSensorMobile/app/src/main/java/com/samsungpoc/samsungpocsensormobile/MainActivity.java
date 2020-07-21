@@ -61,7 +61,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         initSensorManager();
         loadStepData();
 
-        toolbar = findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
 
         dialogBuilder = new AlertDialog.Builder(this);
@@ -123,6 +123,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         stepProgressBar = findViewById(R.id.step_progress_bar);
         stepCountTextView = findViewById(R.id.step_count_text_view);
         stepCountTargetTextView = findViewById(R.id.step_count_target_text_view);
+        toolbar = findViewById(R.id.toolbar);
     }
 
     private void initSensorManager() {
