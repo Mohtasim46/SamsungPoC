@@ -7,6 +7,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -67,6 +68,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         dialogBuilder.setTitle("Set User Target");
 
         dialogInput = new EditText(this);
+        dialogInput.setMaxLines(1);
+        dialogInput.setPadding(48, 24, 24, 24);
+
         dialogInput.setInputType(InputType.TYPE_CLASS_NUMBER);
         dialogInput.setText("" + PreferenceHelper.getCurrentStepsTarget());
 
