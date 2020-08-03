@@ -33,7 +33,7 @@ public class MessageService extends WearableListenerService {
     private void loadStepData() {
         StepData stepData = new StepData();
         stepData.setStepCount(PreferenceHelper.getCurrentStepCount());
-        stepData.setTarget(6000);
+        stepData.setTarget(PreferenceHelper.getCurrentStepsTarget());
         stepData.setLastSyncTimeMilliseconds(System.currentTimeMillis());
         String gsonStepData = new Gson().toJson(stepData);
         Log.d(TAG, "gson " + gsonStepData);
