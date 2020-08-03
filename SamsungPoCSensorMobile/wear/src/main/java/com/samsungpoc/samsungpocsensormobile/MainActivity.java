@@ -3,6 +3,9 @@ package com.samsungpoc.samsungpocsensormobile;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -19,6 +22,7 @@ public class MainActivity extends WearableFragmetActivity implements View.OnClic
 
     private ConstraintLayout constraintLayout;
     private CardView stepCardView;
+    private ImageView stepIconImageView;
     private CircularProgressBar stepProgressBar;
     private TextView stepCountAndTargetTextView;
     private TextView lastSyncTextView;
@@ -61,6 +65,7 @@ public class MainActivity extends WearableFragmetActivity implements View.OnClic
     private void initFindViewById() {
         constraintLayout = findViewById(R.id.constraint_layout);
         stepCardView = findViewById(R.id.step_card_view);
+        stepIconImageView = findViewById(R.id.step_icon);
         stepProgressBar = findViewById(R.id.step_progress_bar);
         stepCountAndTargetTextView = findViewById(R.id.step_count_and_target_text_view);
         lastSyncTextView = findViewById(R.id.last_sync_time_text_view);
@@ -94,6 +99,7 @@ public class MainActivity extends WearableFragmetActivity implements View.OnClic
         observeStepProgressMutableLiveData();
         observeStepCountAndTargetMutableLiveData();
         observeLastSyncTimeMutableLiveData();
+        observeTargetCompleteMutableLiveData();
     }
 
     private void observeStepProgressMutableLiveData() {
@@ -120,12 +126,38 @@ public class MainActivity extends WearableFragmetActivity implements View.OnClic
         });
     }
 
+    private void observeTargetCompleteMutableLiveData() {
+        Log.d(TAG, "observeTargetCompleteMutableLiveData called");
+        getMainViewModel().targetCompleteMutableLiveData.observe(this, isComplete -> {
+            if (isComplete) {
+                playTargetCompleteAnimation();
+            } else {
+                playLoadingStepDataAnimation();
+            }
+        });
+    }
+
     /*
         Loading data
      */
     private void loadStepData() {
         Log.d(TAG, "loadStepData called");
         getMainViewModel().loadStepData();
+    }
+
+    /*
+        Animation
+     */
+    public void playLoadingStepDataAnimation() {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        stepIconImageView.startAnimation(animation);
+        stepIconImageView.setImageResource(R.drawable.ic_step_24dp);
+    }
+
+    public void playTargetCompleteAnimation() {
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        stepCardView.startAnimation(animation);
+        stepIconImageView.setImageResource(R.drawable.ic_trophy_24dp);
     }
 
     /*
