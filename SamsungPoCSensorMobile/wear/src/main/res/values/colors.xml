@@ -2,6 +2,7 @@
 <resources>
     <color name="step_text_color">#FFFFFF</color>
     <color name="step_icon_color">#47FF47</color>
+    <color name="trophy_icon_color">#47FF47</color>
 
     <color name="colorRoundBorder">#FFFFFF</color>
 

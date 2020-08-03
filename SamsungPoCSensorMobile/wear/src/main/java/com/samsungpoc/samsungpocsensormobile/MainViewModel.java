@@ -28,6 +28,7 @@ public class MainViewModel extends AndroidViewModel {
     public MutableLiveData<Float> stepProgressMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<String> stepCountAndTargetMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<String> lastSyncTimeMutableLiveData = new MutableLiveData<>();
+    public MutableLiveData<Boolean> targetCompleteMutableLiveData = new MutableLiveData<>();
 
     public MainViewModel(@NonNull Application application) {
         super(application);
@@ -52,15 +53,27 @@ public class MainViewModel extends AndroidViewModel {
         return ((progress / target) * 100.0f);
     }
 
+    private boolean isTargetComplete() {
+        if (getStepCount() >= getStepCountTarget()) {
+            return true;
+        }
+        return false;
+    }
+
     public void loadStepData() {
         loadStepDataSendMessage("stepData");
     }
 
     private void updateStepCard() {
         stepProgressMutableLiveData.setValue(getStepProgress());
-        stepCountAndTargetMutableLiveData.setValue(getApplication().getResources().getString(
-                R.string.step_count_and_target_text,
-                getStepCount(), getStepCountTarget()));
+        if (isTargetComplete()) {
+            stepCountAndTargetMutableLiveData.setValue(getApplication().getResources().getString(R.string.step_target_complete_text));
+        } else {
+            stepCountAndTargetMutableLiveData.setValue(getApplication().getResources().getString(
+                    R.string.step_count_and_target_text,
+                    getStepCount(), getStepCountTarget()));
+        }
+        targetCompleteMutableLiveData.setValue(isTargetComplete());
         if (getLastSyncTime() == 0) {
             lastSyncTimeMutableLiveData.setValue(getApplication().getResources().getString(
                     R.string.not_synced_yet));
