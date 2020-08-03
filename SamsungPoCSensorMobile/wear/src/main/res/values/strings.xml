@@ -8,6 +8,7 @@
 
     <!--    Main Activity-->
     <string name="step_count_and_target_text">%1d steps\n Target: %2d</string>
+    <string name="step_target_complete_text">Congrats!!\nTarget Complete.</string>
     <string name="not_synced_yet">Not synced yet.\nTap on to sync.</string>
     <string name="last_sync_text">Last sync: %1d:%2d\n%3d-%4s-%5d</string>
 </resources>
